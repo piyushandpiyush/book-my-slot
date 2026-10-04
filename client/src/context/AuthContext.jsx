@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { io } from 'socket.io-client';
+import { connectSocket } from '../utils/socket.js';
 import { authService } from '../services/authService.js';
 
 const AuthContext = createContext(null);
@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (!user) { setNotifications({ items: [], unread: 0 }); return undefined; }
     loadNotifications();
-    const socket = io({ withCredentials: true });
+    const socket = connectSocket();
     socket.on('notification', (n) => {
       toast(`${n.title}: ${n.message || ''}`, 'success');
       setNotifications((s) => ({ items: [n, ...s.items], unread: s.unread + 1 }));

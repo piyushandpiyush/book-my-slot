@@ -22,6 +22,7 @@ export const env = {
   adminEmail: process.env.ADMIN_EMAIL || 'admin@bookmyslot.com',
   // Business-local timezone offset in minutes (IST = +330)
   googleClientId: process.env.GOOGLE_CLIENT_ID || '',
+  trustProxy: Number(process.env.TRUST_PROXY ?? 1),
   tzOffsetMinutes: Number(process.env.TZ_OFFSET_MINUTES ?? 330),
   holdMinutes: Number(process.env.HOLD_MINUTES ?? 10),
   cancelCutoffHours: Number(process.env.CANCEL_CUTOFF_HOURS ?? 2),

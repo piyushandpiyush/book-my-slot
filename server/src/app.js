@@ -13,7 +13,7 @@ import { errorHandler, notFound } from './middleware/errorHandler.js';
 
 export function createApp() {
   const app = express();
-  app.set('trust proxy', 1);
+  app.set('trust proxy', env.trustProxy); // 1 behind Render; 2 when Vercel proxies /api in front of Render
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
