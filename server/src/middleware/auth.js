@@ -9,14 +9,17 @@ export const COOKIE_OPTS = {
   secure: env.isProd,
 };
 
+// Sliding session: every refresh issues a new 30-day refresh cookie, so active users stay signed in.
+const REFRESH_DAYS = 30;
+
 export const signAccess = (user) =>
   jwt.sign({ id: user._id, role: user.role, t: 'access' }, env.jwtSecret, { expiresIn: '1h' });
 export const signRefresh = (user) =>
-  jwt.sign({ id: user._id, t: 'refresh' }, env.jwtRefreshSecret, { expiresIn: '7d' });
+  jwt.sign({ id: user._id, t: 'refresh' }, env.jwtRefreshSecret, { expiresIn: '30d' });
 
 export function setAuthCookies(res, user) {
   res.cookie('token', signAccess(user), { ...COOKIE_OPTS, maxAge: 60 * 60 * 1000 });
-  res.cookie('refresh', signRefresh(user), { ...COOKIE_OPTS, maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie('refresh', signRefresh(user), { ...COOKIE_OPTS, maxAge: REFRESH_DAYS * 24 * 60 * 60 * 1000 });
 }
 export function clearAuthCookies(res) {
   res.clearCookie('token', COOKIE_OPTS);
