@@ -1,5 +1,7 @@
 # Book My Slot
 
+**Live:** https://book-my-slot-t0q7.onrender.com
+
 Online appointment booking for **Salons** and **Parlours** (Unisex / Male-only / Female-only), with online + walk-in bookings sharing one availability system. MERN stack + Socket.IO. **Sign-in is Google-only** (no passwords are stored).
 
 ## Quick start
