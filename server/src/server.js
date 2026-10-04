@@ -6,6 +6,9 @@ import { initSocket } from './realtime.js';
 import { expireStaleHolds } from './services/booking.service.js';
 import { seedAdmin, seedDemo } from './seed.js';
 
+// Node 20 exits on an unhandled rejection; a stray one must not take the whole API down (proxies show that as a 502).
+process.on('unhandledRejection', (e) => console.error('[unhandledRejection]', e));
+
 await connectDB();
 await seedAdmin();
 // In-memory dev database starts empty, so load demo data for a usable first run
